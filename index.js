@@ -21,12 +21,15 @@ var randomNumber = function() {
 
 
 function updatePlayerStyles() {
-    if (currentplayer === 2) {
-        player1.style.backgroundColor = 'rgb(235, 103, 147)'; 
-        player2.style.backgroundColor = 'rgb(236, 179, 194)'; 
-    } else {
-        player1.style.backgroundColor = 'rgb(236, 179, 194)'; 
-        player2.style.backgroundColor = 'rgb(235, 103, 147)'; 
+    switch(currentplayer) {
+        case 1:
+            player1.style.backgroundColor = 'rgb(236, 179, 194)'; 
+            player2.style.backgroundColor = 'rgb(235, 103, 147)'; 
+            break;
+        case 2:
+            player1.style.backgroundColor = 'rgb(235, 103, 147)'; 
+            player2.style.backgroundColor = 'rgb(236, 179, 194)'; 
+            break;
     }
 }
 
@@ -46,14 +49,16 @@ startnewgame.addEventListener("click", function() {
 });
 
 function addtotalscore(){
-    if(currentplayer === 1){
-        player1total += current;
-        player1score.textContent = player1total;
-        console.log("player 1: "+player1total);
-    } else {
-        player2total += current;
-        player2score.textContent = player2total;
-        console.log("player 2: "+player2total);
+    switch(currentplayer) {
+        case 1:
+            player1total += current;
+            player1score.textContent = player1total;
+            console.log("player 1: "+player1total);
+            break;
+        case 2:
+            player2total += current;
+            player2score.textContent = player2total;
+            console.log("player 2: "+player2total);
     }
 }
 
@@ -67,43 +72,66 @@ rolldice.addEventListener("click", function() {
     current+=temp;
     if(temp==1){
         current=0;
-        if(currentplayer==1) currentplayer = 2;
-        else currentplayer = 1;
+        switch(currentplayer) {
+            case 1:
+                player1current.textContent = "0";
+                currentplayer = 2;
+                break;
+            case 2:
+                player2current.textContent = "0";
+                currentplayer = 1;
+                break;
+        }
         updatePlayerStyles();
-        player1current.textContent = "0";
-        player2current.textContent = "0";
     }
     else{
         console.log("current: "+current);
-       if(currentplayer === 1){
-            player1current.textContent = current;
-        } else {
-            player2current.textContent = current;
+        switch(currentplayer) {
+            case 1:
+                player1current.textContent = current;
+                break;
+            case 2:
+                player2current.textContent = current;
+                break;
         }
     }
 });
 
 hold.addEventListener("click", function() {
+    if(current === 0) {
+        alert("You need to roll the dice first!");
+        return;
+    }
     addtotalscore();
-    if(currentplayer === 1){
-        player1current.textContent = "0";
-        currentplayer = 2;
-    } else {
-        player2current.textContent = "0";
-        currentplayer = 1;
+    
+    current = 0;
+    switch(currentplayer) {
+        case 1:
+            if(player1total >= 100){
+                alert("Player 1 wins!");
+                rolbtn.disabled= true;
+                holdbtn.disabled= true;
+            }
+            break;
+        case 2:
+            if(player2total >= 100){
+                alert("Player 2 wins!");
+                rolbtn.disabled= true;
+                holdbtn.disabled= true;
+            }
+            break;
+    }
+    switch(currentplayer) {
+        case 1:
+            player1current.textContent = "0";
+            currentplayer = 2;
+            break;
+        case 2:
+            player2current.textContent = "0";
+            currentplayer = 1;
+            break;
     }
     updatePlayerStyles();
-    current = 0;
-    if(player1total >= 100){
-        alert("Player 1 wins!");
-        rolbtn.disabled= true;
-        holdbtn.disabled= true;
-        
-    } else if(player2total >= 100){
-        alert("Player 2 wins!");
-        rolbtn.disabled= true;
-        holdbtn.disabled= true;
-    }
 })
 
 
