@@ -46,6 +46,9 @@ startnewgame.addEventListener("click", function() {
     dice.style.display = "none";
     rolbtn.disabled = false;
     holdbtn.disabled = false;
+    setInterval(()=>{
+        
+    },2000)
 });
 
 function addtotalscore(){
@@ -66,6 +69,7 @@ function addtotalscore(){
 
 
 rolldice.addEventListener("click", function() {
+    interval=setInterval(()=>{
     let temp= randomNumber();
     dice.style.display = "block";
     dice.src = `assets/dice${temp}.png`;
@@ -83,6 +87,7 @@ rolldice.addEventListener("click", function() {
                 currentplayer = 1;
                 break;
         }
+         clearInterval(interval);
         updatePlayerStyles();
         default:{
              console.log("current: "+current);
@@ -96,7 +101,12 @@ rolldice.addEventListener("click", function() {
             }
     }
 }
+    },1000)
 });
+
+
+
+
 
 hold.addEventListener("click", function() {
     if(current === 0) {
@@ -104,6 +114,7 @@ hold.addEventListener("click", function() {
         return;
     }
     addtotalscore();
+    clearInterval(interval);
     
     current = 0;
     switch(currentplayer) {
