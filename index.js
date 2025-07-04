@@ -70,7 +70,8 @@ rolldice.addEventListener("click", function() {
     dice.style.display = "block";
     dice.src = `assets/dice${temp}.png`;
     current+=temp;
-    if(temp==1){
+    switch(temp){
+       case 1:
         current=0;
         switch(currentplayer) {
             case 1:
@@ -83,18 +84,18 @@ rolldice.addEventListener("click", function() {
                 break;
         }
         updatePlayerStyles();
+        default:{
+             console.log("current: "+current);
+            switch(currentplayer) {
+                case 1:
+                    player1current.textContent = current;
+                    break;
+                case 2:
+                    player2current.textContent = current;
+                    break;
+            }
     }
-    else{
-        console.log("current: "+current);
-        switch(currentplayer) {
-            case 1:
-                player1current.textContent = current;
-                break;
-            case 2:
-                player2current.textContent = current;
-                break;
-        }
-    }
+}
 });
 
 hold.addEventListener("click", function() {
