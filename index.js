@@ -67,8 +67,8 @@ rolldice.addEventListener("click", function() {
     current+=temp;
     if(temp==1){
         current=0;
-
-        currentplayer = currentplayer === 1 ? 2 : 1;
+        if(currentplayer==1) currentplayer = 2;
+        else currentplayer = 1;
         updatePlayerStyles();
         player1current.textContent = "0";
         player2current.textContent = "0";
