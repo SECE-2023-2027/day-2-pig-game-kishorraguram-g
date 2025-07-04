@@ -8,6 +8,8 @@ var player1score = document.querySelector(".score1");
 var player2score = document.querySelector(".score2");
 var player1current = document.querySelector(".current-score1");
 var player2current = document.querySelector(".current-score2");
+var rolbtn = document.querySelector(".rolbtn");
+var holdbtn = document.querySelector(".holdbtn");
 var player1total = 0;
 var player2total = 0;   
 var currentplayer = 1;
@@ -39,6 +41,8 @@ startnewgame.addEventListener("click", function() {
     player1current.textContent = "0";
     player2current.textContent = "0";
     dice.style.display = "none";
+    rolbtn.disabled = false;
+    holdbtn.disabled = false;
 });
 
 function addtotalscore(){
@@ -92,11 +96,13 @@ hold.addEventListener("click", function() {
     current = 0;
     if(player1total >= 100){
         alert("Player 1 wins!");
-        rolldice.style.display = "none";
-        hold.style.display = "none";
+        rolbtn.disabled= true;
+        holdbtn.disabled= true;
+        
     } else if(player2total >= 100){
         alert("Player 2 wins!");
-        startnewgame.click();
+        rolbtn.disabled= true;
+        holdbtn.disabled= true;
     }
 })
 
